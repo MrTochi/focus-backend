@@ -48,7 +48,7 @@ export const register = async (req, res) => {
     });
     await newUser.save();
 
-    const verifyLink = `${process.env.FRONTEND_URL}/verify-email/${verificationToken}`;
+    const verifyLink = `"https://focus-backend-q1ve.onrender.com"/verify-email/${verificationToken}`;
     await sendEmail(
       email,
       "Verify Your Email",
@@ -178,7 +178,7 @@ export const forgotPassword = async (req, res) => {
 
     await user.save();
 
-    const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${token}`;
+    const resetUrl = `"https://focus-backend-q1ve.onrender.com"/reset-password/${token}`;
 
     await sendEmail(
       user.email,
