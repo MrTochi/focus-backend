@@ -1,6 +1,3 @@
-import jwt from "jsonwebtoken";
-import User from "../model/userModel.js";
-
 const verifyToken = async (req, res, next) => {
   try {
     const token = req.cookies.token;
@@ -16,7 +13,11 @@ const verifyToken = async (req, res, next) => {
       return res.status(401).json({ message: "User not found" });
     }
 
-    req.user = user;
+    req.user = {
+      id: user._id.toString(),
+      role: user.role,
+    };
+
     next();
   } catch (err) {
     res
@@ -24,5 +25,3 @@ const verifyToken = async (req, res, next) => {
       .json({ message: "Token verification failed", error: err.message });
   }
 };
-
-export default verifyToken;
