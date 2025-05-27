@@ -258,7 +258,7 @@ export const getUser = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
-  const userId = req.user.id;
+  const { id: userId, role } = req.user;
   const { id } = req.params;
   if (userId !== id) {
     return res.status(403).json({
@@ -267,7 +267,7 @@ export const deleteUser = async (req, res) => {
     });
   }
 
-  if (userId.role !== "admin") {
+  if (role !== "admin" && userId !== id) {
     return res.status(403).json({
       message: "You are not authorized to delete this user",
       success: false,
